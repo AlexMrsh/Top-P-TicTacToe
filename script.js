@@ -11,44 +11,56 @@ player1 = createPlayer('Alex', 'X')
 player2 = createPlayer('AI', 'O')
 */
 
+const CROSS_SYMBOL = 'X'
+const CIRCLE_SYMBOL = 'O'
+let circleTurn = false
+
 
 const gameBoard = (() => {
     const _board = new Array(9);
+    let currentSymbol = 'X';
 
     const initializeField = () => {
         const container = document.getElementById('container');
         for(let i = 0; i < _board.length; i++){
             let fieldDiv = document.createElement('div')
-            fieldDiv.className = 'field-symbols'
             fieldDiv.setAttribute('data-boardindex', i);
-            fieldDiv.addEventListener('click', setField)
+            fieldDiv.addEventListener('click', handleClick, {once: true})
             container.appendChild(fieldDiv)
         }
     }
 
-    const setField = event => {
+    const handleClick = event => {
+        const boardElement = e.target;
+        const currentSymbol = circleTurn ? CIRCLE_SYMBOL : CROSS_SYMBOL
         let boardIndex = event.target.getAttribute('data-boardindex')
-        event.target.setAttribute('tick', 'X')
-        let sign = 'X';
-        _board[boardIndex] = sign;
-        event.target.textContent = sign;
+        boardElement.textContent = currentSymbol;
+        
+        _board[boardIndex] = currentSymbol;
+        event.target.textContent = currentSymbol;
+        
         checkGameStatus();
         //computerTurn
         console.log(_board)
     }
 
     const checkGameStatus = () => {
-        
-        if(     _board[0] === _board[1] && _board[1] === _board[2]
-            ||  _board[3] === _board[4] && _board[4] === _board[5]
-            ||  _board[6] === _board[7] && _board[7] === _board[8]
-            ||  _board[0] === _board[3] && _board[3] === _board[6]
-            ||  _board[1] === _board[4] && _board[4] === _board[7]
-            ||  _board[2] === _board[5] && _board[5] === _board[8]
-            ||  _board[0] === _board[4] && _board[4] === _board[8]
-            ||  _board[2] === _board[4] && _board[4] === _board[6]){
-            console.log('ok')
-        }
+        const winingCombinations = [
+            [0,1,2],
+            [3,4,5],
+            [6,7,8],
+            [0,3,6],
+            [1,4,7],
+            [2,5,8],
+            [0,4,8],
+            [2,4,6]
+        ];
+        return winingCombinations.some(combination => {
+            return combination.every(index => {
+                const boardElements = document.querySelectorAll('[data-boardindex]')
+                return boardElements[index].textContent
+            })
+        })
     }
 
     return {
