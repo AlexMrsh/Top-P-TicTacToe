@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
-    <title>Tic Tac Toe</title>
+    <title>Tic Tac Toe (by myself)</title>
 </head>
 <body>
     <header>
@@ -14,10 +15,13 @@
         <span id="subheading">a Project from The Odin Project Fullstack JavaScript Curriculum</span>
     </header>
     <div id="main">
-        <h2 id="game-status"></h2>
-        <div id="container">
-
+        <div id="field">
+            
         </div>
+    </div>
+    <div id="round-result-background" class="hidden">
+        <span id="result-text">text</span>
+        <button id="new-round-button">Play again</button>
     </div>
 </body>
 </html>
