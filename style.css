@@ -8,6 +8,7 @@
 
 body{
     margin: 0;
+    display: grid;
 }
 
 header{
@@ -27,7 +28,7 @@ header > h1{
     align-items: center;
 }
 
-#field{
+#main > #field{
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
