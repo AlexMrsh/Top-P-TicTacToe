@@ -33,12 +33,10 @@ function startGame(){
     })
     setBoardHoverClass()
     winningMessage.classList.remove('show')
-
-
 }
 
-function handleClick(e){
-    const cell = e.target
+function handleClick(event){
+    const cell = event.target
     const currentClass = circleTurn ? CIRCLE_CLASS : CROSS_CLASS
 
     //placeMark
@@ -97,3 +95,12 @@ function checkWin(currentClass){
         })
     })
 }
+
+/*  La fonction checkWin prend currentClass comme argument.
+    Elle itère sur WINNING_COMBINATION avec le test .some()
+    .some prend combination comme argument, correspondant à chaque élément de l'array WINNING_COMBINATION
+    combination passe le test .every, qui renvoie index (la valeur de chaque des sous élément de l'élément de l'array)
+    celleElements est la nodeList renvoyé par querySelectorAll
+    On passe la valeur de chaque index dans cellElements comme index de référence à la nodelist testée
+    On vérifie que toutes les valeurs de la nodeList testée contiennent la class currentClass
+*/
