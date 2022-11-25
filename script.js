@@ -28,7 +28,8 @@ const gameBoard = (() => {
     function createPlayer(name, difficulty){
         return{name, difficulty}
     }
-
+    let player1Input = document.getElementById('player1-name')
+    let player2Input = document.getElementById('player2-name')
     const playerAiButton = document.querySelectorAll('.player-ai-button')
     const startGameButton = document.getElementById('start-game')
     const gameFormBackground = document.getElementById('game-form-background')
@@ -41,11 +42,27 @@ const gameBoard = (() => {
     playAgainButton.addEventListener('click', newRound)
     startGameButton.addEventListener('click', (e) => {
         e.preventDefault()
+        if(checkInput()) return;
         loadGameParameters()
         setScoreBoard()
         startGame()
         gameFormBackground.classList.add('hidden')
     })
+
+    function checkInput(){
+        if(player1Input.value === ''){
+            player1Input.classList.add('input-is-empty')
+        }else{
+            player1Input.classList.remove('input-is-empty')
+        }
+        if(player2Input.value === ''){
+            player2Input.classList.add('input-is-empty')
+        }else{
+            player2Input.classList.remove('input-is-empty')
+        }
+        if(player1Input.classList.contains('input-is-empty') || player2Input.classList.contains('input-is-empty'))
+        return true
+    }
     
     function setScoreBoard(){
         let scoreboardPlayer1Name = document.getElementById('scoreboard-player1-name')
@@ -55,12 +72,10 @@ const gameBoard = (() => {
     }
 
     function loadGameParameters(){
-        let player1Input = document.getElementById('player1-name')
         let player1Name = player1Input.value
         let player1Difficulty = player1Input.nextElementSibling.getAttribute('data-difficulty')
         player1 = createPlayer(player1Name, player1Difficulty)
 
-        let player2Input = document.getElementById('player2-name')
         let player2Name = player2Input.value
         let player2Difficulty = player2Input.nextElementSibling.getAttribute('data-difficulty')
         player2 = createPlayer(player2Name, player2Difficulty)
@@ -160,9 +175,7 @@ const gameBoard = (() => {
         }
     }
 
-    return{
-        startGame
-    }
+    return{startGame}
 })()
 
 gameBoard.startGame()

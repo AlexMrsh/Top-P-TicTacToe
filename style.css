@@ -75,7 +75,6 @@ header > h1{
 
 
 
-
 .hidden{
     display: none !important;
 }
@@ -166,25 +165,25 @@ input
     text-align: center;
 }
 
-#game-form > label:first-child > button.player-ai-button{
+#game-form > label:nth-child(1) > button.player-ai-button{
     background-color: rgb(66, 94, 177);
 }
-#game-form > label:first-child > input{
+#game-form > label:nth-child(1) > input#player1-name{
     border: 5px solid rgb(66, 94, 177);
 }
-#game-form > label:first-child > div{
+#game-form > label:nth-child(1) > div{
     color: rgb(66, 94, 177);
 }
 
 
 #game-form > label:nth-child(2) > button.player-ai-button{
-    background-color: rgb(177, 66, 66);
+    background-color: rgb(103, 66, 177);
 }
-#game-form > label:nth-child(2) > input{
-    border: 5px solid rgb(177, 66, 66)
+#game-form > label:nth-child(2) > input#player2-name{
+    border: 5px solid rgb(103, 66, 177);
 }
 #game-form > label:nth-child(2) > div{
-    color: rgb(177, 66, 66);
+    color: rgb(103, 66, 177);
 }
 
 #game-form > button{
@@ -198,4 +197,8 @@ input
 
 #game-form > button:hover{
     background-color: rgb(66, 177, 121);
+}
+
+.input-is-empty{
+    border: 5px solid rgb(177, 66, 66) !important;
 }
