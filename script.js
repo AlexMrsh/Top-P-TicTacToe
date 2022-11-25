@@ -23,9 +23,13 @@ const gameBoard = (() => {
     let circleTurn
     let player1
     let player2
+    let computerPlaying
 
+    function ComputerPlaying(isPlaying, playerRef, difficulty){
+        return{isPlaying, playerRef, difficulty}
+    }
 
-    function createPlayer(name, difficulty){
+    function CreatePlayer(name, difficulty){
         return{name, difficulty}
     }
     let player1Input = document.getElementById('player1-name')
@@ -44,10 +48,42 @@ const gameBoard = (() => {
         e.preventDefault()
         if(checkInput()) return;
         loadGameParameters()
+        isComputerPlaying()     //check if player 1 or 2 is computer, boolean
+
+        // CONTINUE HERE
+        // if isComputerPlaying() === true
+        // take computerPlaying.playerRef
+        // lock (keep) user from interacting with the grid when it's playerRef's turn (1 or 2)
+        // setTimeout(computerTurn function, 1000) to delay the computer choice
+        // computerTurn() checks which grid cells are empty
+        // random choice between empty cells
+        // place symbol on cell
+        // unlock user interaction when computer has played
+        
         setScoreBoard()
         startGame()
         gameFormBackground.classList.add('hidden')
     })
+
+    function isComputerPlaying(){
+        if(player1.difficulty !== 0){
+            computerPlaying = ComputerPlaying(true, 'player1', player1.difficulty)
+            console.log(computerPlaying)
+        }else{
+            computerPlaying = ''
+        }
+
+        if(player2.difficulty !== 0){
+            computerPlaying = ComputerPlaying(true, 'player2', player2.difficulty)
+        }else{
+            computerPlaying = ''
+        }
+        if(computerPlaying.isPlaying === true){
+            return true
+        }else{
+            return false
+        }
+    }
 
     function checkInput(){
         if(player1Input.value === ''){
@@ -74,11 +110,11 @@ const gameBoard = (() => {
     function loadGameParameters(){
         let player1Name = player1Input.value
         let player1Difficulty = player1Input.nextElementSibling.getAttribute('data-difficulty')
-        player1 = createPlayer(player1Name, player1Difficulty)
+        player1 = CreatePlayer(player1Name, player1Difficulty)
 
         let player2Name = player2Input.value
         let player2Difficulty = player2Input.nextElementSibling.getAttribute('data-difficulty')
-        player2 = createPlayer(player2Name, player2Difficulty)
+        player2 = CreatePlayer(player2Name, player2Difficulty)
     }
     
     playerAiButton.forEach((element) => {
@@ -88,11 +124,21 @@ const gameBoard = (() => {
     function switchDifficulty(event){
         event.preventDefault()
         let currentDifficulty = event.target.getAttribute('data-difficulty')
-            if(currentDifficulty === (Object.keys(PLAYER_AI_DIFFICULTY).length-1).toString()){
-                currentDifficulty = 0;
-            }else{
-                currentDifficulty++
-            }
+        
+        if(currentDifficulty === (Object.keys(PLAYER_AI_DIFFICULTY).length-1).toString()){
+            currentDifficulty = 0;
+        }else{
+            currentDifficulty++
+        }
+        
+        //check if AI (computer) is chosen
+        if(currentDifficulty !== 0){  
+            event.target.previousElementSibling.value = 'Computer'
+            event.target.previousElementSibling.setAttribute('readonly', true)
+        }else{
+            event.target.previousElementSibling.value = ''
+            event.target.previousElementSibling.setAttribute('readonly', false)
+        }
         updateDifficultyDisplay(currentDifficulty, event.target)
     }
 
