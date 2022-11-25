@@ -15,16 +15,31 @@
         <span id="subheading">a Project from The Odin Project Fullstack JavaScript Curriculum</span>
     </header>
     <div id="main">
-        <div id="field">
-            
-        </div>
+        <div id="field"></div>
         <div id="scoreboard">
-            test
+            <h2>Scores</h2>
+            <span id="cross-score">1</span>
+            <span id="circle-score">2</span>
         </div>
     </div>
     <div id="round-result-background" class="hidden">
         <span id="result-text">text</span>
         <button id="new-round-button">Play again</button>
+    </div>
+    <div id="game-form-background">
+        <form id="game-form">
+            <label for="player1-name">
+                <input type="text" id="player1-name" placeholder="Player 1">
+                <div class="material-symbols-outlined">close</div>
+                <button class="player-or-ai">AI or Player</button>
+            </label>
+            <label for="player2-name">
+                <input type="text" id="player2-name" placeholder="Player 2">
+                <div class="material-symbols-outlined">circle</div>
+                <button class="player-or-ai">AI or Player</button>
+            </label>
+            <button id="start-game">START</button>
+        </form>
     </div>
 </body>
 </html>

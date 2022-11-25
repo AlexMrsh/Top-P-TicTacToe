@@ -14,10 +14,18 @@ const gameBoard = (() => {
 
     let circleTurn
 
+    const startGameButton = document.getElementById('start-game')
+    const gameFormBackground = document.getElementById('game-form-background')
     const field = document.getElementById('field')
     const fieldElements = field.querySelectorAll('div')
     const roundResultBackground = document.getElementById('round-result-background')
     const playAgainButton = document.getElementById('new-round-button')
+
+    startGameButton.addEventListener('click', (e) => {
+        e.preventDefault()
+        startGame()
+        gameFormBackground.classList.add('hidden')
+    })
 
     playAgainButton.addEventListener('click', newRound)
 
@@ -45,7 +53,7 @@ const gameBoard = (() => {
         
         if(checkWin(currentSymbol)){
             showRoundResult(true, currentSymbol)        //true == someone won
-            //update scores et roundCount
+            updateScore(currentSymbol)
         }else if(checkFull()){
             showRoundResult(false)                      //false == no winner
         }else{
@@ -83,6 +91,16 @@ const gameBoard = (() => {
     function newRound(){
         roundResultBackground.classList.add('hidden')
         startGame()
+    }
+
+    function updateScore(winner){
+        if(winner === CIRCLE_CLASS){
+            let circleScore = document.getElementById('circle-score')
+            circleScore.textContent++
+        }else{
+            let crossScore = document.getElementById('cross-score')
+            crossScore.textContent++
+        }
     }
 
     return{
