@@ -14,31 +14,40 @@
         <h1>Tic Tac Toe</h1>
         <span id="subheading">a Project from The Odin Project Fullstack JavaScript Curriculum</span>
     </header>
+
     <div id="main">
         <div id="field"></div>
         <div id="scoreboard">
             <h2>Scores</h2>
-            <span id="cross-score">1</span>
-            <span id="circle-score">2</span>
+            <div id="player1-score-container">
+                <span id="scoreboard-player1-name">Me</span>
+                <span id="player1-score">0</span>
+            </div>
+            <div id="player2-score-container">
+                <span id="scoreboard-player2-name">You</span>
+                <span id="player2-score">0</span>
+            </div>
         </div>
     </div>
+
     <div id="round-result-background" class="hidden">
         <span id="result-text">text</span>
         <button id="new-round-button">Play again</button>
     </div>
+
     <div id="game-form-background">
         <form id="game-form">
             <label for="player1-name">
-                <input type="text" id="player1-name" placeholder="Player 1">
                 <div class="material-symbols-outlined">close</div>
-                <button class="player-or-ai">AI or Player</button>
+                <input type="text" id="player1-name" placeholder="Player 1" required>
+                <button class="player-ai-button" data-difficulty="0">Human</button>
             </label>
             <label for="player2-name">
-                <input type="text" id="player2-name" placeholder="Player 2">
                 <div class="material-symbols-outlined">circle</div>
-                <button class="player-or-ai">AI or Player</button>
+                <input type="text" id="player2-name" placeholder="Player 2" required>
+                <button class="player-ai-button" data-difficulty="0">Human</button>
             </label>
-            <button id="start-game">START</button>
+            <button type="submit" form="game-form" id="start-game">START</button>
         </form>
     </div>
 </body>

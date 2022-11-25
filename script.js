@@ -12,8 +12,24 @@ const gameBoard = (() => {
         [2,4,6]
     ]
 
-    let circleTurn
+    const PLAYER_AI_DIFFICULTY = {
+        0: 'Human',
+        1: 'AI Easy',
+        2: 'AI Medium',
+        3: 'AI Hard'
 
+    }
+
+    let circleTurn
+    let player1
+    let player2
+
+
+    function createPlayer(name, difficulty){
+        return{name, difficulty}
+    }
+
+    const playerAiButton = document.querySelectorAll('.player-ai-button')
     const startGameButton = document.getElementById('start-game')
     const gameFormBackground = document.getElementById('game-form-background')
     const field = document.getElementById('field')
@@ -21,13 +37,54 @@ const gameBoard = (() => {
     const roundResultBackground = document.getElementById('round-result-background')
     const playAgainButton = document.getElementById('new-round-button')
 
+    
+    playAgainButton.addEventListener('click', newRound)
     startGameButton.addEventListener('click', (e) => {
         e.preventDefault()
+        loadGameParameters()
+        setScoreBoard()
         startGame()
         gameFormBackground.classList.add('hidden')
     })
+    
+    function setScoreBoard(){
+        let scoreboardPlayer1Name = document.getElementById('scoreboard-player1-name')
+        scoreboardPlayer1Name.textContent = player1.name
+        let scoreboardPlayer2Name = document.getElementById('scoreboard-player2-name')
+        scoreboardPlayer2Name.textContent = player2.name
+    }
 
-    playAgainButton.addEventListener('click', newRound)
+    function loadGameParameters(){
+        let player1Input = document.getElementById('player1-name')
+        let player1Name = player1Input.value
+        let player1Difficulty = player1Input.nextElementSibling.getAttribute('data-difficulty')
+        player1 = createPlayer(player1Name, player1Difficulty)
+
+        let player2Input = document.getElementById('player2-name')
+        let player2Name = player2Input.value
+        let player2Difficulty = player2Input.nextElementSibling.getAttribute('data-difficulty')
+        player2 = createPlayer(player2Name, player2Difficulty)
+    }
+    
+    playerAiButton.forEach((element) => {
+        element.addEventListener('click', switchDifficulty)
+    })
+    
+    function switchDifficulty(event){
+        event.preventDefault()
+        let currentDifficulty = event.target.getAttribute('data-difficulty')
+            if(currentDifficulty === (Object.keys(PLAYER_AI_DIFFICULTY).length-1).toString()){
+                currentDifficulty = 0;
+            }else{
+                currentDifficulty++
+            }
+        updateDifficultyDisplay(currentDifficulty, event.target)
+    }
+
+    function updateDifficultyDisplay(index, element){
+        element.textContent = PLAYER_AI_DIFFICULTY[index]
+        element.setAttribute('data-difficulty', index)
+    }
 
     function startGame(){
         field.innerHTML = ''            //reset field content
@@ -95,10 +152,10 @@ const gameBoard = (() => {
 
     function updateScore(winner){
         if(winner === CIRCLE_CLASS){
-            let circleScore = document.getElementById('circle-score')
+            let circleScore = document.getElementById('player2-score')
             circleScore.textContent++
         }else{
-            let crossScore = document.getElementById('cross-score')
+            let crossScore = document.getElementById('player1-score')
             crossScore.textContent++
         }
     }
