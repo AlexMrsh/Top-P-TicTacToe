@@ -137,7 +137,7 @@ const gameBoard = (() => {
             event.target.previousElementSibling.setAttribute('readonly', true)
         }else{
             event.target.previousElementSibling.value = ''
-            event.target.previousElementSibling.setAttribute('readonly', false)
+            event.target.previousElementSibling.removeAttribute('readonly')
         }
         updateDifficultyDisplay(currentDifficulty, event.target)
     }
